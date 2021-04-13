@@ -47,6 +47,10 @@
 									priority="NeverOverflow"/>
 							</layoutData>
 						</SearchField>
+						<OverflowToolbarButton
+								type="Transparent"
+								icon="sap-icon://add"
+								press="handleNewItemAdd"/>
 					</OverflowToolbar>
 				</headerToolbar>
 

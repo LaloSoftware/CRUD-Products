@@ -20,9 +20,9 @@
 
 		<semantic:headerContent>
 			<Label labelFor="price" text="Price"/>
-			<ObjectNumber
+			<ObjectAttribute
 				id="price"
-				number="{
+				text="{
 					path: 'Price',
 					formatter: '.formatter.numberUnit'
 				}"
