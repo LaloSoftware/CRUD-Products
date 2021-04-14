@@ -2,6 +2,7 @@
 	controllerName="localsap.crud.products2.controller.Object"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
 	xmlns:semantic="sap.f.semantic">
 
 	<semantic:SemanticPage
@@ -19,27 +20,38 @@
 		</semantic:titleHeading>
 
 		<semantic:headerContent>
-			<Label labelFor="productId" text="Product ID"/>
-			<ObjectAttribute id="productId" text="{ID}"/>
-			
-			<Label labelFor="price" text="Price"/>
-			<ObjectAttribute
-				id="price"
-				text="{
-					path: 'Price',
-					formatter: '.formatter.numberUnit'
-				}"
-			/>
-			
-			<Label labelFor="releaseDate" text="Release Date"/>
-			<ObjectAttribute id="releaseDate" text="{ReleaseDate}"/>
+			<FlexBox wrap="Wrap">
+				<l:VerticalLayout
+					class="sapUiSmallMarginBeginEnd"
+					>	
+					<Label labelFor="productId" text="Product ID"/>
+					<ObjectAttribute id="productId" text="{ID}"/>
+					<Label labelFor="price" text="Price"/>
+					<ObjectAttribute
+						id="price"
+						text="{
+							path: 'Price',
+							formatter: '.formatter.numberUnit'
+						}"
+					/>
+				</l:VerticalLayout>
+				
+				<l:VerticalLayout
+					class="sapUiSmallMarginBeginEnd"
+					>
+					<Label labelFor="releaseDate" text="Release Date"/>
+					<ObjectAttribute id="releaseDate" text="{ReleaseDate}"/>
 
 
-			<Label labelFor="discontinuedDate" text="Discontinued Date" visible="{= ${DiscontinuedDate} !== null}"/>
-			<ObjectAttribute id="discontinuedDate" text="{DiscontinuedDate}"/>
+					<Label labelFor="discontinuedDate" text="Discontinued Date" visible="{= ${DiscontinuedDate} !== null}"/>
+					<ObjectAttribute id="discontinuedDate" text="{DiscontinuedDate}"/>
+				</l:VerticalLayout>
 
-			<Label labelFor="rating" text="Rating "/>
-			<ObjectStatus id="rating" text="{Rating}" state="{= ${Raiting} > 3? 'Success': 'Error' }"/>
+				<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+					<Label labelFor="rating" text="Rating"/>
+					<RatingIndicator id="rating" maxValue="5" value="{Rating}" iconSize="16px" editable="false"/>
+				</l:VerticalLayout>
+			</FlexBox>
 		</semantic:headerContent>
 
 		<semantic:content>
