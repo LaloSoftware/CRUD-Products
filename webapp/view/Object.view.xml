@@ -19,6 +19,9 @@
 		</semantic:titleHeading>
 
 		<semantic:headerContent>
+			<Label labelFor="productId" text="Product ID"/>
+			<ObjectAttribute id="productId" text="{ID}"/>
+			
 			<Label labelFor="price" text="Price"/>
 			<ObjectAttribute
 				id="price"
@@ -27,7 +30,21 @@
 					formatter: '.formatter.numberUnit'
 				}"
 			/>
+			
+			<Label labelFor="releaseDate" text="Release Date"/>
+			<ObjectAttribute id="releaseDate" text="{ReleaseDate}"/>
+
+
+			<Label labelFor="discontinuedDate" text="Discontinued Date" visible="{= ${DiscontinuedDate} !== null}"/>
+			<ObjectAttribute id="discontinuedDate" text="{DiscontinuedDate}"/>
+
+			<Label labelFor="rating" text="Rating "/>
+			<ObjectStatus id="rating" text="{Rating}" state="{= ${Raiting} > 3? 'Success': 'Error' }"/>
 		</semantic:headerContent>
+
+		<semantic:content>
+
+		</semantic:content>
 
 		<semantic:sendEmailAction>
 			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
@@ -40,6 +57,10 @@
 		<semantic:editAction>
 			<semantic:EditAction />
 		</semantic:editAction>
+
+		<semantic:deleteAction>
+			<semantic:DeleteAction />
+		</semantic:deleteAction>
 	</semantic:SemanticPage>
 
 </mvc:View>
