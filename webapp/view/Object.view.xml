@@ -71,7 +71,7 @@
 		</semantic:editAction>
 
 		<semantic:deleteAction>
-			<semantic:DeleteAction />
+			<semantic:DeleteAction  press="deleteEventHandler"/>
 		</semantic:deleteAction>
 	</semantic:SemanticPage>
 

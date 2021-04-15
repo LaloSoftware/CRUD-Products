@@ -7,18 +7,10 @@ sap.ui.define([
 ], function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
 	"use strict";
 
+	var url = "https://services.odata.org/V2/(S(c3qv1aqvo0qah0x0leynwbgy))/OData/OData.svc/";
 	return BaseController.extend("localsap.crud.products2.controller.Worklist", {
 
 		formatter: formatter,
-
-		/* =========================================================== */
-		/* lifecycle methods                                           */
-		/* =========================================================== */
-
-		/**
-		 * Called when the worklist controller is instantiated.
-		 * @public
-		 */
 		onInit : function () {
 			var oViewModel,
 				iOriginalBusyDelay,
@@ -51,19 +43,6 @@ sap.ui.define([
 			});
 		},
 
-		/* =========================================================== */
-		/* event handlers                                              */
-		/* =========================================================== */
-
-		/**
-		 * Triggered by the table's 'updateFinished' event: after new table
-		 * data is available, this handler method updates the table counter.
-		 * This should only happen if the update was successful, which is
-		 * why this handler is attached to 'updateFinished' and not to the
-		 * table's list binding's 'dataReceived' method.
-		 * @param {sap.ui.base.Event} oEvent the update finished event
-		 * @public
-		 */
 		onUpdateFinished : function (oEvent) {
 			// update the worklist's object counter after the table update
 			var sTitle,
@@ -79,11 +58,6 @@ sap.ui.define([
 			this.getModel("worklistView").setProperty("/worklistTableTitle", sTitle);
 		},
 
-		/**
-		 * Event handler when a table item gets pressed
-		 * @param {sap.ui.base.Event} oEvent the table selectionChange event
-		 * @public
-		 */
 		onPress : function (oEvent) {
 			// The source is the list item that got pressed
 			this._showObject(oEvent.getSource());
@@ -148,8 +122,35 @@ sap.ui.define([
 			}
 		},
 
-		handleNewItemAdd: function () {
-			this.getRouter().navTo("new", {}, true);
+		handleAddNewItem: function () {
+			let data = {
+				"ID": 9,
+				"Name": "Laptop",
+            	"Description": "A new Laptop",
+            	"ReleaseDate": "2021-04-14T21:56:13.048Z",
+            	"DiscontinuedDate": null,
+            	"Rating": 4,
+            	"Price": "8.8"
+			}
+
+			let headers =  {
+				'Content-Type': 'application/json',
+				'Accept' : 'application/json'
+			}
+
+			let oModel = new sap.ui.model.odata.v2.ODataModel(url);
+			oModel.setHeaders(headers);
+
+			oModel.create("/Products", data, {
+				method: "POST",
+				success: function (data) {
+					console.log(data);
+				},
+				error: function (response) {
+					console.log(response);
+				}
+			});
+			
 		}
 
 	});

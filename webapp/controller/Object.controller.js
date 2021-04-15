@@ -6,6 +6,8 @@ sap.ui.define([
 ], function (BaseController, JSONModel, History, formatter) {
 	"use strict";
 
+	var _url = "https://services.odata.org/V2/(S(c3qv1aqvo0qah0x0leynwbgy))/OData/OData.svc/";
+	var productId = null;
 	return BaseController.extend("localsap.crud.products2.controller.Object", {
 
 		formatter: formatter,
@@ -73,6 +75,7 @@ sap.ui.define([
 		 */
 		_onObjectMatched : function (oEvent) {
 			var sObjectId =  oEvent.getParameter("arguments").objectId;
+			this.productId = oEvent.getParameter("arguments").objectId;
 			this.getModel().metadataLoaded().then( function() {
 				var sObjectPath = this.getModel().createKey("Products", {
 					ID :  sObjectId
@@ -133,6 +136,19 @@ sap.ui.define([
 			oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
 			oViewModel.setProperty("/shareSendEmailMessage",
 			oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
+		},
+
+		deleteEventHandler: function (oEvent) {
+			let oModel = new sap.ui.model.odata.v2.ODataModel(_url);
+			oModel.remove(`/Products(${productId})`, {
+				method: "DELETE",
+				success: function (data) {
+					console.log(data);
+				},
+				error: function (response) {
+					console.log(response);
+				}
+			})
 		}
 
 	});
